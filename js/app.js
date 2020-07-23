@@ -68,6 +68,9 @@ function PlayerCharacter(name, strength, levelUnlock, weapon, health) {
     this.levelUnlock = levelUnlock
     this.weapon = weapon
     this.health = health
+    this.intro = function() {
+        console.log(`${name} is a character unlocked at level ${levelUnlock}, who has a strength level of ${strength} and uses a ${weapon} as their weapon.`)
+    }
 }
 
 let masterChief = new PlayerCharacter("Master Chief", "1000", "5", "Battle Rifle", "1000")
@@ -77,3 +80,57 @@ let mario = new PlayerCharacter("Mario", "100", "1", "Hat", "100")
 console.log(masterChief)
 console.log(link)
 console.log(mario)
+console.log(mario.intro())
+
+class Car {
+    constructor(make, model, color, year) {
+        this.make = make
+        this.model = model
+        this.color = color
+        this.year = year
+        this.description = `This is a ${this.make} ${this.model} with a pearlescent ${this.color} made in ${this.year}`
+    }
+
+    drive() {
+        console.log("Vroom vroom")
+    }
+}
+
+let tesla = new Car('Tesla', 'Model 3', 'Red', '2019')
+
+console.log(tesla)
+
+class GithubProfile {
+    constructor(name, username, url, repoCount, followerCount, followingCount) {
+        this.name = name
+        this.username = username
+        this.url = url
+        this.repoCount = repoCount
+        this.followerCount = followerCount
+        this.followingCount = followingCount
+    }
+
+    intro() {
+        console.log(`My name is ${this.name} and I have ${this.repoCount} public repos with ${this.followerCount} followers and my username is ${this.username}`)
+    }
+}
+
+const gitApiUrl = 'https://api.github.com/users/anthonygregis'
+
+fetch(gitApiUrl)
+    .then(response => {
+        if (response.ok) {
+            return response.json()
+        }
+    })
+    .then(data => {
+        let githubUrl = data.url
+        let githubUsername = data.login
+        let githubName = data.name
+        let githubRepoCount = data.public_repos
+        let githubFollowerCount = data.followers
+        let githubFollowingCount = data.following
+
+        let anthony = new GithubProfile(githubName, githubUsername, githubUrl, githubRepoCount, githubFollowerCount, githubFollowingCount)
+
+    })
